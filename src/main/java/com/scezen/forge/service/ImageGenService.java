@@ -12,13 +12,13 @@ public class ImageGenService {
         this.imageClient = imageClient;
     }
 
-    public ImageResponse generateImage(String prompt) {
+    public ImageResponse generateImage(String promptContent) {
         ImageOptions imageOptions = ImageOptionsBuilder.builder()
                 .withN(1)
-                .withHeight(1024)
-                .withWidth(1024)
+                .withHeight(600)
+                .withWidth(600)
                 .build();
 
-        return imageClient.call(new ImagePrompt(prompt, imageOptions));
+        return imageClient.call(new ImagePrompt(promptContent, imageOptions));
     }
 }
