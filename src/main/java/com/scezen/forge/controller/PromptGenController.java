@@ -20,8 +20,8 @@ public class PromptGenController {
         this.promptGenService = promptGenService;
     }
 
-    @GetMapping("/getprompt")
-    public String getPrompt() throws IOException {
+    @GetMapping("/generate-prompt")
+    public String generatePrompt() throws IOException {
         return promptGenService.generatePrompt();
     }
 }

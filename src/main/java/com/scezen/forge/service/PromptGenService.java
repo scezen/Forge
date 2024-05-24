@@ -23,10 +23,10 @@ public class PromptGenService {
     }
 
     public String generatePrompt() throws IOException {
-        byte[] imageData = new ClassPathResource("/images/illustration.jpg").getContentAsByteArray();
+        byte[] imageData = new ClassPathResource("/images/illustration.png").getContentAsByteArray();
         UserMessage userMessage = new UserMessage(
-                "Based on the following flaticon, generate a description focusing on its style, color palette, mood, without referencing the specific object depicted. Create the description in a templated format where {PRODUCT} can be replaced by any object to generate a new image with the same style.",
-                new Media(MimeTypeUtils.IMAGE_JPEG, imageData)
+                "Based on the following flaticon, generate a prompt focusing on its style, color palette, and mood. Do not reference the specific object depicted. Instead, create the description in a templated format where {VERTICAL} can be replaced by any object to generate a new image with the same style. The prompt should be detailed enough to be used with the DALL-E API to generate icons for different product category. Please format the prompt with words like 'should' 'must' may' etc. Each guideline must be on line breaks to ensure readability and modularity of the prompt.",
+                new Media(MimeTypeUtils.IMAGE_PNG, imageData)
         );
 
         ChatResponse response = chatClient.call(new Prompt(userMessage));

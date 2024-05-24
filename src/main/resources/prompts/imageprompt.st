@@ -1,1 +1,10 @@
-Create a simple and elegant icon for the {VERTICAL} category of my website. The icon should have a clean and minimalist design with a subtle reference to ecology. Use natural colors such as greens, blues, and earthy tones to convey a sense of environmental friendliness. The design should be modern and suitable for a website focused on sustainability and eco-conscious products. Ensure the icon is set on a white background to facilitate seamless integration into the website.
+Create a flat icon of a {VERTICAL} that strictly adheres to the following guidelines:
+
+The icon should be in a modern, minimalist style with clean and simple lines.
+The icon must be integrated inside a circle with a central focus on the {VERTICAL}.
+Use a soft color palette consisting primarily of shades of green and off-white.
+The image must not have any shadows or dropshadows of any kind.
+The design may include small, decorative elements such as leaves.
+The overall mood must be fresh and eco-friendly, evoking a sense of calm and simplicity.
+The background color must be full white without any gradient or texture.
+There must be absolutely no shadows or dropshadows.
