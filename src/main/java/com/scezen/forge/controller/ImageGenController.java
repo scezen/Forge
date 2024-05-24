@@ -2,6 +2,7 @@ package com.scezen.forge.controller;
 
 import com.scezen.forge.service.ImageGenService;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * This controller handles image generation requests.
+ */
 @RestController
 public class ImageGenController {
 
@@ -18,11 +22,12 @@ public class ImageGenController {
     @Value("classpath:/prompts/imageprompt.st")
     private Resource imagePromptResource;
 
+    @Autowired
     public ImageGenController(ImageGenService imageGenService) {
         this.imageGenService = imageGenService;
     }
 
-    @GetMapping("/getimage")
+    @GetMapping("/generate-image")
     public void generateImage(HttpServletResponse response) throws IOException {
 
         String promptContent = new PromptTemplate(imagePromptResource).create().getContents();

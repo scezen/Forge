@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 import java.io.IOException;
 
+/**
+ * This service generates prompts from a specified image using OPENAI API.
+ */
 @Service
 public class PromptGenService {
 
