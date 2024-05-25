@@ -1,5 +1,6 @@
 package com.scezen.forge.controller;
 
+import com.scezen.forge.config.ForgeProperties;
 import com.scezen.forge.service.ImageGenService;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,18 @@ public class ImageGenController {
 
     private final ImageGenService imageGenService;
 
-    @Value("classpath:/prompts/imageprompt.st")
-    private Resource imagePromptResource;
+    private final ForgeProperties forgeProperties;
 
     @Autowired
-    public ImageGenController(ImageGenService imageGenService) {
+    public ImageGenController(ImageGenService imageGenService, ForgeProperties forgeProperties) {
         this.imageGenService = imageGenService;
+        this.forgeProperties = forgeProperties;
     }
 
     @GetMapping("/generate-image")
     public void generateImage(HttpServletResponse response) throws IOException {
 
-        String promptContent = new PromptTemplate(imagePromptResource).create().getContents();
+        String promptContent = forgeProperties.getPrompt();
 
         String imageUrl = imageGenService.generateImage(promptContent).getResult().getOutput().getUrl();
 
