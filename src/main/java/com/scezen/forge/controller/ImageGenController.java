@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This controller handles image generation requests.
@@ -32,16 +33,35 @@ public class ImageGenController {
 
     @GetMapping("/generate-images")
     public String generateImages() throws IOException {
+
+        long startTime = System.currentTimeMillis();
+
         String promptTemplate = forgeProperties.getPrompt();
+
         for (String vertical : forgeProperties.getVerticals()) {
             String promptContent = promptTemplate.replace("{VERTICAL}", vertical);
             String imageUrl = imageGenService.generateImage(promptContent).getResult().getOutput().getUrl();
 
-            String fileName = vertical.toLowerCase() + "-generated-image.png";
+            String fileName = vertical.toLowerCase() + "-forged.png";
             imageGenService.saveImage(imageUrl, fileName);
 
             logger.info("Image for vertical '{}' saved successfully to {}", vertical, forgeProperties.getOutputDirectory());
         }
+
+        long endTime = System.currentTimeMillis();
+        long durationMillis = endTime - startTime;
+
+        String durationFormatted;
+        if (durationMillis >= TimeUnit.MINUTES.toMillis(1)) {
+            long durationMinutes = TimeUnit.MILLISECONDS.toMinutes(durationMillis);
+            durationFormatted = durationMinutes + " minutes";
+        } else {
+            long durationSeconds = TimeUnit.MILLISECONDS.toSeconds(durationMillis);
+            durationFormatted = durationSeconds + " seconds";
+        }
+
+        logger.info("All images generated successfully in {}.", durationFormatted);
+
         return "Image generation for all verticals completed.";
     }
 }
