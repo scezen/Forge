@@ -2,6 +2,8 @@ package com.scezen.forge.controller;
 
 import com.scezen.forge.config.ForgeProperties;
 import com.scezen.forge.service.ImageGenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +20,8 @@ import java.io.IOException;
 @RestController
 public class ImageGenController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ImageGenController.class);
     private final ImageGenService imageGenService;
-
     private final ForgeProperties forgeProperties;
 
     @Autowired
@@ -29,12 +31,17 @@ public class ImageGenController {
     }
 
     @GetMapping("/generate-image")
-    public void generateImage(HttpServletResponse response) throws IOException {
+    public String generateImage(HttpServletResponse response) throws IOException {
 
         String promptContent = forgeProperties.getPrompt();
 
         String imageUrl = imageGenService.generateImage(promptContent).getResult().getOutput().getUrl();
 
-        response.sendRedirect(imageUrl);
+        String fileName = "generated-image.png";
+        imageGenService.saveImage(imageUrl, fileName);
+
+        logger.info("Image saved successfully to " + forgeProperties.getOutputDirectory());
+
+        return "Image generation completed.";
     }
 }
