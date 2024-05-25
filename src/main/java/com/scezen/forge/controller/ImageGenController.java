@@ -30,18 +30,18 @@ public class ImageGenController {
         this.forgeProperties = forgeProperties;
     }
 
-    @GetMapping("/generate-image")
-    public String generateImage(HttpServletResponse response) throws IOException {
+    @GetMapping("/generate-images")
+    public String generateImages() throws IOException {
+        String promptTemplate = forgeProperties.getPrompt();
+        for (String vertical : forgeProperties.getVerticals()) {
+            String promptContent = promptTemplate.replace("{VERTICAL}", vertical);
+            String imageUrl = imageGenService.generateImage(promptContent).getResult().getOutput().getUrl();
 
-        String promptContent = forgeProperties.getPrompt();
+            String fileName = vertical.toLowerCase() + "-generated-image.png";
+            imageGenService.saveImage(imageUrl, fileName);
 
-        String imageUrl = imageGenService.generateImage(promptContent).getResult().getOutput().getUrl();
-
-        String fileName = "generated-image.png";
-        imageGenService.saveImage(imageUrl, fileName);
-
-        logger.info("Image saved successfully to " + forgeProperties.getOutputDirectory());
-
-        return "Image generation completed.";
+            logger.info("Image for vertical '{}' saved successfully to {}", vertical, forgeProperties.getOutputDirectory());
+        }
+        return "Image generation for all verticals completed.";
     }
 }

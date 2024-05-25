@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * This service generates an image from a prompt (imageprompt.st) using OPENAI API.
+ * This service generates an image from a prompt using OPENAI API.
  */
 @Service
 public class ImageGenService {
