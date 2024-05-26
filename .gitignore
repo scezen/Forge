@@ -1,6 +1,7 @@
 HELP.md
 target/
 src/main/resources/images/*.png
+!src/main/resources/images/.gitkeep
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
