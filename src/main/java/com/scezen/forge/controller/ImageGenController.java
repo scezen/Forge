@@ -4,19 +4,25 @@ import com.scezen.forge.config.ForgeProperties;
 import com.scezen.forge.service.ImageGenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This controller handles image generation requests.
+ * ImageGenController is a REST controller responsible for handling requests to generate images based on a predefined prompt.
+ *
+ * This controller performs the following tasks:
+ * 1. Retrieves the prompt template and list of verticals from the application configuration (application.yml).
+ * 2. Iterates over each vertical, replaces placeholders in the prompt with the current vertical, and generates an image using the ImageGenService.
+ * 3. Saves each generated image to the specified output directory with a filename corresponding to the vertical.
+ * 4. Logs the success of each image generation and the total time taken for all generations.
+ *
+ * Dependencies:
+ * - ForgeProperties: Provides configuration properties including the prompt template, list of verticals, and output directory.
+ * - ImageGenService: Handles the actual image generation and saving process.
  */
 @RestController
 public class ImageGenController {
