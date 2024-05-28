@@ -39,8 +39,6 @@ public class ImageGenController {
     @GetMapping("/generate-images")
     public String generateImages() throws IOException {
 
-        long startTime = System.currentTimeMillis();
-
         String promptTemplate = forgeProperties.getPrompt();
 
         for (String vertical : forgeProperties.getVerticals()) {
