@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ImageGenController is a REST controller responsible for handling requests to generate images based on a predefined prompt.
@@ -53,20 +52,6 @@ public class ImageGenController {
 
             logger.info("Image for vertical '{}' saved successfully to {}", vertical, forgeProperties.getOutputDirectory());
         }
-
-        long endTime = System.currentTimeMillis();
-        long durationMillis = endTime - startTime;
-
-        String durationFormatted;
-        if (durationMillis >= TimeUnit.MINUTES.toMillis(1)) {
-            long durationMinutes = TimeUnit.MILLISECONDS.toMinutes(durationMillis);
-            durationFormatted = durationMinutes + " minutes";
-        } else {
-            long durationSeconds = TimeUnit.MILLISECONDS.toSeconds(durationMillis);
-            durationFormatted = durationSeconds + " seconds";
-        }
-
-        logger.info("All images generated successfully in {}.", durationFormatted);
 
         return "Image generation for all verticals completed.";
     }
